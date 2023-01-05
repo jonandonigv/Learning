@@ -3,14 +3,12 @@ import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 
-
 export async function getStaticProps(context) {
   const postsData = getSortedPostsData();
   return {
-    props: {postsData}, // will be passed to the page component as props
-  }
+    props: { postsData }, // will be passed to the page component as props
+  };
 }
-
 
 export default function Home({ postsData }) {
   return (
@@ -30,7 +28,17 @@ export default function Home({ postsData }) {
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>{console.log(postsData)}</ul>
+        <ul className={utilStyles.list}>
+          {postsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
       </section>
     </Layout>
   );
